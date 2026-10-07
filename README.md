@@ -13,11 +13,26 @@ Een kleine productcatalogus gebouwd met **Umbraco 18** op **ASP.NET Core**, om d
 
 ## Lokaal draaien
 
+De SQLite-database zit niet in de repo. Voeg bij de eerste start dit blok toe aan `appsettings.Development.json`, binnen `Umbraco` → `CMS`:
+
+```json
+"Unattended": {
+  "InstallUnattended": true,
+  "UnattendedUserName": "Admin",
+  "UnattendedUserEmail": "admin@example.com",
+  "UnattendedUserPassword": "VervangDitWachtwoord123!"
+},
+```
+
+Start daarna de app:
+
 ```bash
 dotnet run
 ```
 
-De database (SQLite) zit niet in de repo. Bij de eerste start kun je een admin-account aanmaken via een unattended install in `appsettings.Development.json`.
+Umbraco maakt de database en het admin-account automatisch aan. Log in via `/umbraco` en haal het `Unattended`-blok daarna weer weg.
+
+> **Let op:** In Umbraco staan Document Types en content in de database, niet in de code. Na een verse clone is de site dus leeg. De code (models, templates, handler) staat wel in de repo. In een echt project los je dit op met een tool als uSync, die Document Types als bestanden in source control zet.
 
 Headless endpoint:
 `/umbraco/delivery/api/v2/content?filter=contentType:product`
