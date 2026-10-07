@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ProductOverzicht>
+@{
+    Layout = "Master.cshtml";
+}
+
+<h1>@Model.Name</h1>
+<ul>
+@foreach (var product in Model.Children<Product>())
+{
+    <li>
+        <a href="@product.Url()">@product.Name</a>
+        (@(product.Voorraad > 0 ? "op voorraad" : "uitverkocht"))
+    </li>
+}
+</ul>

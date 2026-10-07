@@ -1,0 +1,35 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
+@{
+    Layout = "Master.cshtml";
+}
+
+<h1>Welkom bij de ProductCatalogus</h1>
+
+@if (Model.Blokken is not null)
+{
+    foreach (var blok in Model.Blokken)
+    {
+        switch (blok.Content)
+        {
+            case HeroBlok hero:
+                <section style="background:#eef; padding:1rem; margin:1rem 0;">
+                    <h2>@hero.Titel</h2>
+                    <p>@hero.Tekst</p>
+                </section>
+                break;
+
+            case UitgelichtProductBlok uitgelicht when uitgelicht.GekozenProduct is Product product:
+                <section style="border:2px solid #333; padding:1rem; margin:1rem 0;">
+                    <strong>Uitgelicht:</strong>
+                    <a href="@product.Url()">@product.Name</a>
+                    voor @product.Prijs.ToString("C", new System.Globalization.CultureInfo("nl-NL"))
+                </section>
+                break;
+        }
+    }
+}
+
+@foreach (var pagina in Model.Children())
+{
+    <p><a href="@pagina.Url()">@pagina.Name</a></p>
+}

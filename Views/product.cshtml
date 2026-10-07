@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Product>
+@{
+    Layout = "Master.cshtml";
+}
+
+<article>
+    <h1>@Model.Name</h1>
+    @if (Model.Afbeelding is not null)
+    {
+        <img src="@Model.Afbeelding.Url()" alt="@Model.Name" width="300" />
+    }
+    <p>Prijs: @Model.Prijs.ToString("C", new System.Globalization.CultureInfo("nl-NL"))</p>
+    @if (Model.Voorraad > 0)
+    {
+        <p>Op voorraad (@Model.Voorraad stuks)</p>
+    }
+    else
+    {
+        <p><strong>Uitverkocht</strong></p>
+    }
+    @Model.Omschrijving
+</article>
